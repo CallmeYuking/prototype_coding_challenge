@@ -115,46 +115,47 @@ So make sure that all your code is private and doesn't interfere with the other 
 */
 
 // var question, answer, number
+(function() {
+    var Question = function(question, answer, correct) {
+        this.question = question;
+        this.answer = answer;
+        this.correct = correct;
+    };
 
-var Question = function(question, answer, correct) {
-    this.question = question;
-    this.answer = answer;
-    this.correct = correct;
-};
+    Question.prototype.displayQuestion = function() {
+        console.log(this.question);
 
-Question.prototype.displayQuestion = function() {
-    console.log(this.question);
-
-    for(var i = 0; i < this.answer.length; i ++) {
-        console.log(this.answer[i]);
+        for(var i = 0; i < this.answer.length; i ++) {
+            console.log(this.answer[i]);
+        }
     }
-}
 
-Question.prototype.checkAnswer = function(ans) {
-    if(ans === this.correct) {
-        console.log('Correct! You are so smart!')
-    }else{
-        console.log('Dumb! That\'s wrong answer!')
+    Question.prototype.checkAnswer = function(ans) {
+        if(ans === this.correct) {
+            console.log('Correct! You are so smart!')
+        }else{
+            console.log('Dumb! That\'s wrong answer!')
+        }
     }
-}
 
-var question1 = new Question("Is Tiffany the most beatiful girl in the world? (Type 'Yes' or 'No' answear the question)" ,
-                              ['Yes', 'No'],
-                              'Yes');
+    var question1 = new Question("Is Tiffany the most beatiful girl in the world? (Type 'Yes' or 'No' answear the question)" ,
+                                ['Yes', 'No'],
+                                'Yes');
 
-var question2 = new Question("Who is the name of Tiffany's girlfriend down blow? ",
-                              ['A: Little Erica', 'B: Lovely Erica', 'C: Dorky Erica'],
-                              'C');
+    var question2 = new Question("Who is the name of Tiffany's girlfriend down blow? ",
+                                ['A: Little Erica', 'B: Lovely Erica', 'C: Dorky Erica'],
+                                'C');
 
-var question3 = new Question("What does best describe Tiffany?",
-                              ['A: Charming', 'B: Dorable', 'C: Lovely', 'D: All'],
-                              'D');        
+    var question3 = new Question("What does best describe Tiffany?",
+                                ['A: Charming', 'B: Dorable', 'C: Lovely', 'D: All'],
+                                'D');        
 
-var questions = [question1, question2, question3];
-var n = Math.floor(Math.random() * questions.length);
+    var questions = [question1, question2, question3];
+    var n = Math.floor(Math.random() * questions.length);
 
-questions[n].displayQuestion();
+    questions[n].displayQuestion();
 
-var answer = prompt('Please select the correct answer.');
+    var answer = prompt('Please select the correct answer.');
 
-questions[n].checkAnswer(answer);
+    questions[n].checkAnswer(answer);
+})();
