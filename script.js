@@ -122,16 +122,39 @@ var Question = function(question, answer, correct) {
     this.correct = correct;
 };
 
-var question1 = new Question("Is Tiffany the most beatiful girl in the world? (Type 'Yes' or 'No' answear the question" ,
-                              ['Yes', 'No'],
-                              0);
+Question.prototype.displayQuestion = function() {
+    console.log(this.question);
 
-var question2 = new Question("Who is the name of Tiffany's girlfriend down blow?",
-                              ['Little Erica', 'Lovely Erica', 'Dorky Erica'],
-                              2);
+    for(var i = 0; i < this.answer.length; i ++) {
+        console.log(this.answer[i]);
+    }
+}
+
+Question.prototype.checkAnswer = function(ans) {
+    if(ans === this.correct) {
+        console.log('Correct! You are so smart!')
+    }else{
+        console.log('Dumb! That\'s wrong answer!')
+    }
+}
+
+var question1 = new Question("Is Tiffany the most beatiful girl in the world? (Type 'Yes' or 'No' answear the question)" ,
+                              ['Yes', 'No'],
+                              'Yes');
+
+var question2 = new Question("Who is the name of Tiffany's girlfriend down blow? ",
+                              ['A: Little Erica', 'B: Lovely Erica', 'C: Dorky Erica'],
+                              'C');
 
 var question3 = new Question("What does best describe Tiffany?",
-                              ['Charming', 'Dorable', 'Lovely', 'All'],
-                              3);        
+                              ['A: Charming', 'B: Dorable', 'C: Lovely', 'D: All'],
+                              'D');        
 
-                              
+var questions = [question1, question2, question3];
+var n = Math.floor(Math.random() * questions.length);
+
+questions[n].displayQuestion();
+
+var answer = prompt('Please select the correct answer.');
+
+questions[n].checkAnswer(answer);
