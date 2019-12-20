@@ -114,7 +114,10 @@ So make sure that all your code is private and doesn't interfere with the other 
 (Hint: we learned a special technique to do exactly that).
 */
 
-// var question, answer, number
+/* -------------------solution 1 of coding chanllenge.-------------------------
+
+var question, answer, number
+
 (function() {
     var Question = function(question, answer, correct) {
         this.question = question;
@@ -158,4 +161,79 @@ So make sure that all your code is private and doesn't interfere with the other 
     var answer = prompt('Please select the correct answer.');
 
     questions[n].checkAnswer(answer);
+})();
+*/
+
+// -------------------solution 2 of coding chanllenge.-------------------------
+var question, answer, number
+
+(function() {
+    var Question = function(question, answer, correct) {
+        this.question = question;
+        this.answer = answer;
+        this.correct = correct;
+    };
+
+    Question.prototype.displayQuestion = function() {
+        console.log(this.question);
+
+        for(var i = 0; i < this.answer.length; i ++) {
+            console.log(this.answer[i]);
+        }
+    }
+
+    Question.prototype.checkAnswer = function(ans, callback) {
+        var sc;
+
+        if(ans === this.correct) {
+            console.log('Correct! You are so smart!')
+            sc = callback(true);
+        }else{
+            console.log('Dumb! That\'s wrong answer!')
+            sc = callback(false);
+        }
+        this.displayScore(sc)
+    }
+
+    Question.prototype.displayScore = function(score) {
+        console.log(`Your current score is: ${score} `);
+        console.log(`--------------------------`)
+    }
+
+    var question1 = new Question("Is Tiffany the most beatiful girl in the world? (Type 'Yes' or 'No' answear the question)" ,
+                                ['Yes', 'No'],
+                                'Yes');
+
+    var question2 = new Question("Who is the name of Tiffany's girlfriend down blow? ",
+                                ['A: Little Erica', 'B: Lovely Erica', 'C: Dorky Erica'],
+                                'C');
+
+    var question3 = new Question("What does best describe Tiffany?",
+                                ['A: Charming', 'B: Dorable', 'C: Lovely', 'D: All'],
+                                'D');     
+    var questions = [question1, question2, question3];
+
+    function score() {
+        var sc = 0;
+        return function(correct) {
+            if (correct) {
+                sc++;
+            }
+            return sc;
+        }
+    }
+
+    var keepScore = score();
+
+    function nextQuestion() {
+        var n = Math.floor(Math.random() * questions.length);
+        questions[n].displayQuestion();
+        var answer = prompt('Please select the correct answer.');
+
+        if(answer !== 'exit') {
+            questions[n].checkAnswer(answer, keepScore);
+            nextQuestion();
+        }
+    }
+    nextQuestion()
 })();
